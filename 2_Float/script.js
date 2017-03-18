@@ -3,9 +3,7 @@ function Particles(canvas, count) {
     this.count = count || rand(500, 1000);
     this.particles = [];
     for(var i = 0; i < this.count; i++) {
-        var y_fourth = Math.floor(canvas.height / 4);
-        var y = random() * Math.floor(canvas.el.height / 4) + Math.floor(canvas.el.height * 2) + 1;
-        this.particles.push(new Particle(canvas, 1, y));
+        this.particles.push(new Particle(canvas, random(0, canvas.width), random(0, canvas.height)));
     }
 
     this.draw = function() {
@@ -19,20 +17,22 @@ function Particle(canvas, x,y, r) {
     this.canvas = canvas;
     this.x = x || rand();
     this.y = y || rand();
-    this.vx = random(-2,3);
+    this.vx = random(-1,1);
     this.vy = random(-1,1);
-    this.r = r || rand(1,5);
-    this.color = "rgb(255,255,255)";
+    this.r = r || rand(1,2);
+    this.color = [255,255,255,random()];
     this.draw = function() {
         var canvas = this.canvas.el;
         var c = this.canvas.c;
         this.x = (this.x + this.vx) % canvas.width;
         this.y = (this.y + this.vy) % canvas.height;
 
+        c.globalAlpha = this.color[3];
         c.beginPath();
         c.arc(this.x, this.y, this.r, 0, 2*Math.PI, false);
-        c.fillStyle = '#fff';
+        c.fillStyle = rgb(this.color);
         c.fill();
+        c.globalAlpha = 1;
     }
 }
 

@@ -92,12 +92,13 @@ function DrawCircle(c, x, y, r) {
 }
 
 
-function rgb(r,g,b) {
-    return 'rgb('+r+','+g+','+b+')';
+function rgb() {
+    if( arguments.length == 1 )
+        return 'rgb('+arguments[0][0]+','+arguments[0][1]+','+arguments[0][2]+')';
+    return 'rgb('+arguments[0]+','+arguments[1]+','+arguments[2]+')';
 }
 
 function hsl(h,s,l) {
     return 'hsl('+h+','+s+'%,'+l+'%)';
 }
-
 
