@@ -47,6 +47,35 @@ function format(str) {
 }
 
 
+// Given a function fn, runs only one at a time.
+function oneAtATime(fn) {
+    var isdone = true,
+        done = function() { isdone = true; };
+    return function() {
+        if( isdone ) {
+            isdone = false;
+            var args = [].slice.call(arguments).concat(done);
+            fn.apply(this, args);
+        }
+    }
+}
+
+
+// David Walsh's throttling function
+function debounce(fn, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) fn.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) fn.apply(context, args);
+    };
+};
 
 
 ////////////////////////////////////////////////////////////////
