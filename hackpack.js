@@ -100,6 +100,20 @@ function clamp(num, min,max) {
 }
 
 
+function dist(a,b) {
+    var L = a.length, sum;
+    for(var i = 0; i < L; i++) {
+        var diff = a[i]-b[i];
+        sum += diff*diff
+    }
+    return Math.sqrt(sum);
+}
+
+function plot(t,a,b) {
+    return a + (b-a)*t
+}
+
+
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -122,9 +136,4 @@ function rgb() {
 
 function hsl(h,s,l) {
     return 'hsl('+h+','+s+'%,'+l+'%)';
-}
-
-function colorDist(a,b) {
-    var r = [a[0]-b[0], a[1]-b[1], a[2]-b[2]]
-    return Math.sqrt(r[0]*r[0] + r[1]*r[1] + r[2]*r[2]);
 }
