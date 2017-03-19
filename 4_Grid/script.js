@@ -30,6 +30,12 @@ function Nodes(canvas, space, r) {
         }
     }
 
+    this.mouseleave = function() {
+        for(var i = 0; i < this.nodes.length; i++) {
+            this.nodes[i].mouseleave();
+        }
+    }
+
     this.init = function() {
         var s = this.space + this.r;
         var xCount = Math.ceil(this.canvas.width / s);
@@ -46,6 +52,7 @@ function Nodes(canvas, space, r) {
                 id += 1;
             }
         }
+        console.log(this.nodes.length, xCount, yCount);
     }
 
     this.init();
@@ -92,17 +99,17 @@ function Node(canvas, id, opt) {
     this.mousemove = function(x,y) {
         var dx = (this.p[0] - x),
             dy = (this.p[1] - y);
-        var d = Math.sqrt(dx*dx + dy*dy);
-        var r = 300;
-        if( 0 < d && d <= r ) {
-            this.color[3] = 0.2 + (0.4 - d/r*0.4);
-        } else {
-            this.color[3] = 0.2;
-        }
+        var radius = 300;
+        var d = clamp(Math.sqrt(dx*dx + dy*dy), 0, radius) / radius;
+        this.color[1] = Math.round(plot(d, 108, 255));
+        this.color[2] = Math.round(plot(d,  74, 255));
+        this.color[3] = plot(d, 0.8, 0.2);
+    }
+
+    this.mouseleave = function() {
+        this.color = [255,255,255, 0.2];
     }
 }
-
-
 
 
 function Canvas() {
@@ -151,9 +158,13 @@ window.onload = function setup() {
     canvas.update();
     n.draw();
 
-    // document.onmousemove = function(e) {
-    //     n.mousemove(e.pageX,e.pageY);
-    // }
+    document.onmousemove = function(e){
+        n.mousemove(e.pageX,e.pageY);
+    };
+
+    document.onmouseleave = function(e) {
+        n.mouseleave();
+    }
 
 
 
