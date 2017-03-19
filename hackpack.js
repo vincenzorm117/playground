@@ -36,6 +36,13 @@ function random(a,b) {
     return Math.random();
 }
 
+// Return True/False depending on wether the 
+//   random num falls below p which is by default 0.5
+function flipcoin(p) {
+    p = isNaN(p) ? 0.5 : ((0 <= p && p <= 1) ? p : 0.5);
+    return Math.random() < p;
+}
+
 // Format text
 function format(str) {
   if( typeof str != typeof '') return null;
@@ -77,6 +84,21 @@ function debounce(fn, wait, immediate) {
     };
 };
 
+// WIP: needs more work
+// Function transformation
+// function transform(fn, amp, x, b) {
+//     amp = isNaN(amp) ? 1 : amp;
+//     x = isNaN(x) ? 1 : x;
+//     b = isNaN(b) ? 1 : b;
+//     return function() {
+//         return amp*fn(x)+b;
+//     }
+// }
+
+function clamp(num, min,max) {
+    return Math.min(Math.max(num, min), max);
+}
+
 
 ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////
@@ -102,3 +124,7 @@ function hsl(h,s,l) {
     return 'hsl('+h+','+s+'%,'+l+'%)';
 }
 
+function colorDist(a,b) {
+    var r = [a[0]-b[0], a[1]-b[1], a[2]-b[2]]
+    return Math.sqrt(r[0]*r[0] + r[1]*r[1] + r[2]*r[2]);
+}
