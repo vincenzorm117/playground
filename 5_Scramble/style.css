@@ -1,0 +1,27 @@
+
+
+@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
+html, body {
+    background: #212121;
+    height: 100%;
+    font-family: 'Roboto Mono', monospace;
+}
+
+
+.container {
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: #212121;
+}
+.text {
+    font-weight: 100;
+    font-size: 28px;
+    color: #fafafa;
+}
+
+.dud {
+    color: #757575;
+}
